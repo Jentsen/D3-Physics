@@ -1,6 +1,5 @@
-// main game obj
 let config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 840,
     height: 480,
     physics: {
@@ -8,12 +7,12 @@ let config = {
         arcade: {
             debug: true,
             gravity: { 
-                y: 0,
-                x: 0
+                y: 300
             }
         }
     },
-    scene: [Load, Menu, Scene1, Scene2, Scene3]
+    // scene: [Intro, GameOver, Scene1]
+    scene: [Intro, Scene1, GameOver]
 };
 
 let game = new Phaser.Game(config);
