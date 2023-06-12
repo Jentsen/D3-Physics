@@ -5,14 +5,13 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: { 
                 y: 300
             }
         }
     },
-    // scene: [Intro, GameOver, Scene1]
-    scene: [Intro, Scene1, GameOver]
+    scene: [Intro, Scene1, Scene2, Scene3, Summary, GameOver]
 };
 
 let game = new Phaser.Game(config);

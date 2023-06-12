@@ -1,18 +1,18 @@
-class Scene2 extends Phaser.Scene {
+class Scene3 extends Phaser.Scene {
     constructor() {
-        super('scene2');
+        super('scene3');
     }
     create() {
         //fade in
         this.cameras.main.fadeIn(1500);
 
         //controls text
-        this.add.text(0, 0, 'Avoid the blue tower!', { fill: '#FFFFFF' });
+        this.add.text(0, 0, 'Click while midair to double jump!', { fill: '#FFFFFF' });
         //restart text button
         let restart = this.add.text(game.config.width - 75, 0, 'Restart', { fill: '#FFFFFF' })
         restart.setInteractive();
         restart.on('pointerdown', () => {
-            this.scene.start('scene2');
+            this.scene.start('scene3');
         });
 
         //timer text
@@ -33,38 +33,17 @@ class Scene2 extends Phaser.Scene {
             }
         }, 1000);
 
-        //shooter and ball
         const shooter = this.add.rectangle(25, 480, 80, 80, 0x00FF00)
             .setDepth(1);
         const ball = this.add.circle(shooter.x, shooter.y - 25, 10, 0xff0000)
             .setOrigin(0, 0);
         this.physics.add.existing(ball);
 
-        //goal to hit
-        const goal = this.add.ellipse(420, 450, 75, 50, 0x00FF00)
+        //place goal at top right
+        const goal = this.add.ellipse(765, 50, 75, 50, 0x00FF00)
         this.physics.add.existing(goal);
         goal.body.setImmovable(true);
         goal.body.setAllowGravity(false);
-
-        //blocker to avoid
-        //rectangle() takes (x, y, width, height, color)
-        const blocker = this.add.rectangle(200, 450, 100, 250, 0x0000FF)
-            .setDepth(1);
-        this.physics.add.existing(blocker);
-        blocker.body.setImmovable(true);
-        blocker.body.setAllowGravity(false);
-        this.physics.add.collider(ball, blocker, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'Uh-oh!', {
-                fontSize: '48px',
-                fill: '#0f0'
-            })
-            .setOrigin(0.5);
-            ball.body.setImmovable(true);
-            ball.body.setAllowGravity(false);
-            this.time.delayedCall(2000, () => {
-                this.scene.start('scene2');
-            });
-        });
 
         this.physics.add.collider(ball, goal, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'Hit!', {
@@ -78,6 +57,39 @@ class Scene2 extends Phaser.Scene {
                 this.scene.start('summary');
             });
         });
+        
+        // add two blue rectangles called blocker1, a smaller recntalge, and blocker2 a longer rectangle that serve as obstacles for the ball, if either one is hit, text appears that says "Uh-oh!" for 2 seconds and the scene restarts
+        const blocker1 = this.add.rectangle(200, 450, 100, 250, 0x0000FF)
+            .setDepth(1);
+        this.physics.add.existing(blocker1);
+        blocker1.body.setImmovable(true);
+        blocker1.body.setAllowGravity(false);
+        this.physics.add.collider(ball, blocker1, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'Uh-oh!', {
+                fontSize: '48px',
+                fill: '#0f0'
+            })
+            .setOrigin(0.5);
+            this.time.delayedCall(2000, () => {
+                this.scene.start('scene3');
+            });
+        });
+        const blocker2 = this.add.rectangle(600, 350, 100, 300, 0x0000FF)
+            .setDepth(1);
+        this.physics.add.existing(blocker2);
+        blocker2.body.setImmovable(true);
+        blocker2.body.setAllowGravity(false);
+        this.physics.add.collider(ball, blocker2, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'Uh-oh!', {
+                fontSize: '48px',
+                fill: '#0f0'
+            })
+            .setOrigin(0.5);
+            this.time.delayedCall(2000, () => {
+                this.scene.start('scene3');
+            });
+        });
+
         
         const graphics = this.add.graphics({ lineStyle: { width: 5, color: 0xffdd00, alpha: 0.3 } });
         const line = new Phaser.Geom.Line();
@@ -97,7 +109,7 @@ class Scene2 extends Phaser.Scene {
             ball.body.enable = true;
             clearInterval(timerInterval);
             // ball.enableBody(true, shooter.x, shooter.y - 50, true, true);
-            this.physics.velocityFromRotation(angle, 450, ball.body.velocity);
+            this.physics.velocityFromRotation(angle, 550, ball.body.velocity);
         });
     }
 }

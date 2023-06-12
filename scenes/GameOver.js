@@ -11,7 +11,7 @@ class GameOver extends Phaser.Scene{
         .setOrigin(0.5);
 
         //restart button 
-        let restart = this.add.text(game.config.width/2, game.config.height/2 - 75, 'Restart?', {
+        let restart = this.add.text(game.config.width/2, game.config.height/2 + 75, 'Restart?', {
             fontSize: '24px',
             fill: '#ffffff',
             backgroundColor: '#00ff00',
