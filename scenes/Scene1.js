@@ -38,6 +38,7 @@ class Scene1 extends Phaser.Scene {
         const ball = this.add.circle(shooter.x, shooter.y - 25, 10, 0xff0000)
             .setOrigin(0, 0);
         this.physics.add.existing(ball);
+
         const goal = this.add.ellipse(420, 450, 75, 50, 0x00FF00)
         this.physics.add.existing(goal);
         goal.body.setImmovable(true);
@@ -55,6 +56,7 @@ class Scene1 extends Phaser.Scene {
                 this.scene.start('summary');
             });
         });
+        
         const graphics = this.add.graphics({ lineStyle: { width: 5, color: 0xffdd00, alpha: 0.3 } });
         const line = new Phaser.Geom.Line();
 

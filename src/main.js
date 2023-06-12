@@ -16,3 +16,5 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
+
+levelCounter = 0;
