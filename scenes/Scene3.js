@@ -58,7 +58,7 @@ class Scene3 extends Phaser.Scene {
             });
         });
         
-        // add two blue rectangles called blocker1, a smaller recntalge, and blocker2 a longer rectangle that serve as obstacles for the ball, if either one is hit, text appears that says "Uh-oh!" for 2 seconds and the scene restarts
+        //place blockers
         const blocker1 = this.add.rectangle(200, 450, 100, 250, 0x0000FF)
             .setDepth(1);
         this.physics.add.existing(blocker1);
